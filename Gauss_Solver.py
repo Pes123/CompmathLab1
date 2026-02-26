@@ -2,25 +2,18 @@ def straight_gauss_method(n, matrixAb):
     swap_count = 0  
 
     for k in range(n - 1):
-
         
-        max_row = k
-        max_value = abs(matrixAb[k][k])
+        if matrixAb[k][k] == 0:  
+            f = False
+            for i in range(k + 1, n):
+                if matrixAb[i][k] != 0: 
+                    matrixAb[k], matrixAb[i] = matrixAb[i], matrixAb[k]
+                    swap_count += 1
+                    f = True
+                    break
+            if not f:
+                return None, None
 
-        for i in range(k + 1, n):
-            if abs(matrixAb[i][k]) > max_value:
-                max_value = abs(matrixAb[i][k])
-                max_row = i
-
-        
-        if max_value == 0:
-            return None, None
-
-        if max_row != k:
-            matrixAb[k], matrixAb[max_row] = matrixAb[max_row], matrixAb[k]
-            swap_count += 1
-
-        
         for i in range(k + 1, n):
             m = matrixAb[i][k] / matrixAb[k][k]
             for j in range(k, n + 1):
@@ -73,8 +66,8 @@ def solve_system(n, matrix):
         return None, None, None, None
 
     det = calculate_determinant(n, triangular_matrix, swap_count)
-
-    if abs(det) == 0:
+    print(det)
+    if abs(det) < 1e-12:
         print("Determinant is zero. No unique solution.")
         return triangular_matrix, None, det, None
 

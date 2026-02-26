@@ -12,7 +12,7 @@ def input_keyboard():
 
 def input_file():
 
-    with open("Lab1\data.txt", 'r') as f:
+    with open("data.txt", 'r') as f:
         n = int(f.readline())
         matrix = []
         for i in range(n):
